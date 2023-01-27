@@ -1,9 +1,12 @@
 import { Button, Heading, MultiStep, Text } from '@eric-ignite-ui/react'
+import { signIn, useSession } from 'next-auth/react'
 import { ArrowRight } from 'phosphor-react'
 import { Container, Header } from '../styles'
 import { ConnectBox, ConnectItem } from './styles'
 
 export default function Register() {
+  const session = useSession()
+
   // async function handleRegister() {}
 
   return (
@@ -21,11 +24,19 @@ export default function Register() {
       <ConnectBox>
         <ConnectItem>
           <Text>Google Calendar</Text>
-          <Button variant="secondary" size="sm">
+          <Button
+            variant="secondary"
+            size="sm"
+            onClick={() => signIn('google')}
+          >
             Conectar
             <ArrowRight />
           </Button>
         </ConnectItem>
+
+        <pre>
+          <Text>{JSON.stringify(session)}</Text>
+        </pre>
 
         <Button type="submit">
           Próximo passo
