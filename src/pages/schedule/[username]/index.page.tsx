@@ -13,7 +13,6 @@ interface ScheduleProps {
 }
 
 export default function Schedule({ user }: ScheduleProps) {
-  console.log(user)
   return (
     <Container>
       <UserHeader>
