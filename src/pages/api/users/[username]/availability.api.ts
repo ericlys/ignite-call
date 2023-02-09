@@ -76,15 +76,25 @@ export default async function handle(
     },
   })
 
-  const availableTimes = possibleTimes.filter((time) => {
-    const isTimeBlocked = blockedTimes.some(
-      (blockedTime) => blockedTime.date.getHours() === time,
-    )
+  /* 
+    problem: returns the available times, however, as they were formatted on the server side, the server's local time can disturb this formatting
+   */
+  // const availableTimes = possibleTimes.filter((time) => {
+  //   const isTimeBlocked = blockedTimes.some(
+  //     (blockedTime) => blockedTime.date.getHours() === time,
+  //   )
 
-    const isTimeInPast = referenceDate.set('hour', time).isBefore(new Date())
+  //   const isTimeInPast = referenceDate.set('hour', time).isBefore(new Date())
 
-    return !isTimeBlocked && !isTimeInPast
+  //   return !isTimeBlocked && !isTimeInPast
+  // })
+
+  /* 
+    solution: return the schedules that exist scheduling so that they are formatted on the client side
+   */
+  const unavailableTimes = blockedTimes.map((schedules) => {
+    return schedules.date
   })
 
-  return res.json({ possibleTimes, availableTimes })
+  return res.json({ possibleTimes, unavailableTimes })
 }
