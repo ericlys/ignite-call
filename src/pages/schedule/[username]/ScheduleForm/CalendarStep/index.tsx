@@ -87,17 +87,18 @@ export function CalendarStep({ onSelectDateTime }: CalendarStepProps) {
           </TimePickerHeader>
 
           <TimePickerList>
-            {availability?.possibleTimes?.map((hour) => {
-              return (
-                <TimePickerItem
-                  key={hour}
-                  onClick={() => handleSelectedTime(hour)}
-                  disabled={!availableTimes?.includes(hour)}
-                >
-                  {String(hour).padStart(2, '0')}:00h
-                </TimePickerItem>
-              )
-            })}
+            {!!availability?.possibleTimes.length &&
+              availability?.possibleTimes.map((hour) => {
+                return (
+                  <TimePickerItem
+                    key={hour}
+                    onClick={() => handleSelectedTime(hour)}
+                    disabled={!availableTimes?.includes(hour)}
+                  >
+                    {String(hour).padStart(2, '0')}:00h
+                  </TimePickerItem>
+                )
+              })}
           </TimePickerList>
         </TimePicker>
       )}
